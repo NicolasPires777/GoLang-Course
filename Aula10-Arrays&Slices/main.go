@@ -23,5 +23,5 @@ func main() {
 	fmt.Println(slice2)
 
 	array3[2] = 9
-	fmt.Println(slice2)
+	fmt.Println(slice2) 
 }
