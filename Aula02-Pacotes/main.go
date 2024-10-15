@@ -14,4 +14,4 @@ func main(){
 	fmt.Println(erro)
 }
 
-//"go mod tidy" para limpar dependencia não utilizadas
+//"go mod tidy" para limpar dependencia não utilizadas 
