@@ -20,4 +20,4 @@ func main() {
 	var3 = 15
 
 	fmt.Println(var3, *ponteiro)
-}
+} 
