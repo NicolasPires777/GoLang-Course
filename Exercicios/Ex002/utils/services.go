@@ -1,12 +1,15 @@
 package utils
 
-import "fmt"
+import (
+	"fmt"
+	"bufio"
+	"os"
+)
 
 var Books []Book
 var Publishers []Publisher
 var Authors []Author
 
-var name string
 var year uint32
 var gender string
 var value float32
@@ -16,31 +19,34 @@ var nacionality string
 
 func CreateBook(name string, year uint32, author Author, publisher Publisher, gender string, value float32){
 	book := Book{name, year, author, publisher, gender, value}
-	Books := append(Books,book)
+	Books = append(Books,book)
 	fmt.Println("Book registered successfully! List of Books: ",Books)
 }
 
 func CreatePublisher(name string, nacionality string){
-	publisher := Publisher{name, nacionality}
-	Publishers := append(Publishers, publisher)
-	fmt.Println("Publisher registered successfully! List of Publishers: ",Publishers)
+	publisher := Publisher{name: name, nacionality: nacionality}
+	Publishers = append(Publishers, publisher)
+	fmt.Println("Publisher registered successfully! List of Publishers: ")
+	ListPublishers()
 }
 
 func CreateAuthor(name string, nacionality string){
 	author := Author{name, nacionality}
-	Authors := append(Authors, author)
-	fmt.Println("Author registered successfully! List of Authors: ",Authors)
+	Authors = append(Authors, author)
+	fmt.Println("Author registered successfully! List of Authors: ")
+	ListAuthors()
 }
 
 func FormBook(){
+	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("Enter the book name: ")
-	_, err:= fmt.Scanln(&name)
+	name, err := reader.ReadString('\n')
 	if err!= nil {
 		fmt.Println("Error receiving value: ",err)
 		return
 	}
 
-	fmt.Print("Enter the book year:")
+	fmt.Print("Enter the book year: ")
 	_, err= fmt.Scanln(&year)
 	if err!= nil {
 		fmt.Println("Error receiving value: ",err)
@@ -48,7 +54,7 @@ func FormBook(){
 	}
 
 	fmt.Print("Enter the book gender: ")
-	_, err= fmt.Scanln(&gender)
+	gender, err= reader.ReadString('\n')
 	if err!= nil {
 		fmt.Println("Error receiving value: ",err)
 		return
@@ -61,6 +67,7 @@ func FormBook(){
 		return
 	}
 
+	fmt.Println("Registered Authors: ")
 	ListAuthors()
 	fmt.Print("Enter the book author: ")
 	_, err= fmt.Scanln(&author)
@@ -69,6 +76,7 @@ func FormBook(){
 		return
 	}
 
+	fmt.Println("Registered Publishers")
 	ListPublishers()
 	fmt.Print("Enter the book publisher: ")
 	_, err= fmt.Scanln(&publisher)
@@ -77,19 +85,20 @@ func FormBook(){
 		return
 	}
 
-	CreateBook(name,year,Authors[author],Publishers[publisher],gender,value)
+	CreateBook(name,year,Authors[author-1],Publishers[publisher-1],gender,value)
 }
 
 func FormAuthor(){
-	fmt.Println("Enter the author name:")
-	_, err := fmt.Scanln(&name)
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Print("Enter the author name: ")
+	name, err := reader.ReadString('\n')
 	if err!= nil {
 		fmt.Println("Error receiving value: ",err)
 		return
 	}
 
-	fmt.Println("Enter the author nacionality: ")
-	_, err= fmt.Scanln(&nacionality)
+	fmt.Print("Enter the author nacionality: ")
+	nacionality, err= reader.ReadString('\n')
 	if err!= nil {
 		fmt.Println("Error receiving value: ",err)
 		return
@@ -99,15 +108,16 @@ func FormAuthor(){
 }
 
 func FormPublisher(){
-	fmt.Println("Enter the publisher name:")
-	_, err := fmt.Scanln(&name)
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Print("Enter the publisher name: ")
+	name, err := reader.ReadString('\n')
 	if err!= nil {
 		fmt.Println("Error receiving value: ",err)
 		return
 	}
 
-	fmt.Println("Enter the publisher nacionality: ")
-	_, err= fmt.Scanln(&nacionality)
+	fmt.Print("Enter the publisher nacionality: ")
+	nacionality, err= reader.ReadString('\n')
 	if err!= nil {
 		fmt.Println("Error receiving value: ",err)
 		return
@@ -116,12 +126,22 @@ func FormPublisher(){
 	CreatePublisher(name,nacionality)
 }
 
+func ListBooks(){
+	if len(Books) == 0{
+		fmt.Println("No registered author")
+	} else {
+		for i, book := range Books{
+			fmt.Println(i+1," - ",book.name)
+		}
+	}
+}
+
 func ListAuthors(){
 	if len(Authors) == 0{
 		fmt.Println("No registered author")
 	} else {
 		for i, author := range Authors{
-			fmt.Println(i," - ",author.name)
+			fmt.Println(i+1," - ",author.name)
 		}
 	}
 }
@@ -131,7 +151,7 @@ func ListPublishers(){
 		fmt.Println("No registered publisher")
 	} else {
 		for i, publisher := range Publishers{
-			fmt.Println(i," - ",publisher.name)
+			fmt.Println(i+1," - ",publisher.name)
 		}
 	}
 }
