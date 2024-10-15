@@ -12,7 +12,7 @@ func main(){
 	var flo1 float32 = 1.34
 	fmt.Println(flo1)
 
-	char := 'M'
+	char := 'M' 
 	fmt.Println(char)
 
 	var booleano1 bool = true
