@@ -22,5 +22,5 @@ func main() {
 	a1 := estudante{p1,"ADS","FMP"}
 	fmt.Println(a1)
 
-	fmt.Println("O estudante se chama",a1.nome)
+	fmt.Println("O estudante se chama",a1.nome) 
 }
