@@ -20,5 +20,5 @@ func main(){
 	const cons1 string = "valor 1"
 	fmt.Println(cons1)
 
-	var5, var6 = var6, var5 // Inverte o valor das variáveis
+	var5, var6 = var6, var5 // Inverte o valor das variáveis 
 }
